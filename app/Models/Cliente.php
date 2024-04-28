@@ -26,5 +26,8 @@ class Cliente extends Model
     'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
     'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza'];
 
+    public function partes(){
+        return $this->hasMany(Parte::class);
+    }
 
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
+use App\Filament\Resources\ClienteResource\RelationManagers\PartesRelationManager;
 use App\Models\Cliente;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -64,10 +65,10 @@ class ClienteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nombre')->label('Nombre'),
-                Tables\Columns\TextColumn::make('dni_cif')->label('DNI/CIF'),
-                Tables\Columns\TextColumn::make('telefono')->label('Móvil'),
-                Tables\Columns\TextColumn::make('email')->label('Email'),
+                Tables\Columns\TextColumn::make('nombre')->label('Nombre')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('dni_cif')->label('DNI/CIF')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('telefono')->label('Móvil')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('email')->label('Email')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('direccion')->label('Dirección')
                 ->description(fn (Cliente $record): string => $record->provincia.','.$record->poblacion.'('.$record->codigo_postal.')'),
             ])
@@ -88,6 +89,7 @@ class ClienteResource extends Resource
     public static function getRelations(): array
     {
         return [
+            PartesRelationManager::class,
         ];
     }
 
