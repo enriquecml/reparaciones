@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ParteResource\Pages;
 use App\Filament\Resources\ParteResource\RelationManagers;
 use App\Models\Parte;
+use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,7 +19,7 @@ class ParteResource extends Resource
 {
     protected static ?string $model = Parte::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle';
 
     public static function form(Form $form): Form
     {
@@ -36,9 +37,9 @@ class ParteResource extends Resource
                 Tables\Columns\TextColumn::make('numero')->label('Nº')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('fecha')->date()->label('Fecha')->sortable()->dateTime('d/m/Y'),
                 Tables\Columns\TextColumn::make('cliente.nombre')->label('Cliente')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('maquina')->label('Máquina')->searchable()->sortable()->lineClamp(3),
-                Tables\Columns\TextColumn::make('averia')->label('Avería')->searchable()->sortable()->lineClamp(3),
-                Tables\Columns\TextColumn::make('reparacion')->label('Reparación')->searchable()->sortable()->lineClamp(3),
+                Tables\Columns\TextColumn::make('maquina')->label('Máquina')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('averia')->label('Avería')->searchable()->sortable()->words(3),
+                Tables\Columns\TextColumn::make('reparacion')->label('Reparación')->searchable()->sortable()->words(3),
                 Tables\Columns\TextColumn::make('total')->label('Total')->money('EUR',locale:'es'),
             ])
             ->filters([
@@ -46,6 +47,12 @@ class ParteResource extends Resource
             ])
             ->headerActions([])
             ->actions([
+                Action::make('pdf')
+                ->action(function(array $data,Parte $parte){
+                     return $parte->generarPDF();
+                })->button()
+                ->icon('heroicon-m-document')
+                ,
             ],position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

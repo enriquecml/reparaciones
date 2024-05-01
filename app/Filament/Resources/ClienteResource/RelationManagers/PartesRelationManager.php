@@ -60,10 +60,10 @@ class PartesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('numero')->label('Nº')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('fecha')->date()->label('Fecha')->sortable()->dateTime('d/m/Y'),
                 Tables\Columns\TextColumn::make('cliente.nombre')->label('Cliente')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('maquina')->label('Máquina')->searchable()->sortable()->lineClamp(3),
-                Tables\Columns\TextColumn::make('averia')->label('Avería')->searchable()->sortable()->lineClamp(3),
-                Tables\Columns\TextColumn::make('reparacion')->label('Reparación')->searchable()->sortable()->lineClamp(3),
-                Tables\Columns\TextColumn::make('total')->label('Total')->money('EUR',locale:'es'),           
+                Tables\Columns\TextColumn::make('maquina')->label('Máquina')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('averia')->label('Avería')->searchable()->sortable()->words(3),
+                Tables\Columns\TextColumn::make('reparacion')->label('Reparación')->searchable()->sortable()->words(3),
+                Tables\Columns\TextColumn::make('total')->label('Total')->money('EUR',locale:'es'),    
             ])
             ->filters([
                 //
